@@ -9,12 +9,14 @@ import {
   Smartphone,
   ChevronDown,
   ArrowRight,
-  BookOpen
+  BookOpen,
+  X
 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function App() {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-100 flex flex-col">
@@ -28,14 +30,12 @@ export default function App() {
             
             <div className="hidden md:flex items-center gap-[30px]">
               <a href="#" className="text-[14px] font-semibold text-slate-800 hover:text-[#2563eb] transition-colors">Inicio</a>
-                            <a 
-                href="https://wa.me/34639262075" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <button 
+                onClick={() => setIsContactModalOpen(true)}
                 className="text-[14px] font-semibold text-slate-800 hover:text-[#2563eb] transition-colors"
               >
                 Contacto
-              </a>
+              </button>
             </div>
               
             <div className="flex items-center gap-5">
@@ -274,6 +274,82 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Contact Modal */}
+      {isContactModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Overlay */}
+          <div 
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300"
+            onClick={() => setIsContactModalOpen(false)}
+          ></div>
+          
+          {/* Modal Content */}
+          <div className="relative bg-white rounded-[24px] shadow-2xl w-full max-w-[400px] overflow-hidden animate-in zoom-in-95 fade-in duration-300">
+            {/* Header / Close button */}
+            <button 
+              onClick={() => setIsContactModalOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            {/* Design Element */}
+            <div className="h-32 bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] relative">
+              <div className="absolute -bottom-10 left-1/2 -translate-x-1/2">
+                <div className="w-20 h-20 rounded-full bg-white p-1 shadow-lg">
+                  <div className="w-full h-full rounded-full bg-slate-100 flex items-center justify-center overflow-hidden">
+                    <User className="w-10 h-10 text-[#1e3a8a]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="pt-14 pb-8 px-8 text-center">
+              <h3 className="text-[24px] font-bold text-slate-900">Ángel</h3>
+              <p className="text-slate-500 text-[14px] font-medium mb-6">Atención al Cliente • Director Formavial</p>
+              
+              <div className="flex flex-col gap-4 mb-8">
+                <div className="flex flex-col items-center">
+                  <span className="text-[12px] text-slate-400 uppercase font-bold tracking-widest mb-1">Teléfono Directo</span>
+                  <a href="tel:639262075" className="text-[22px] font-bold text-slate-800 hover:text-[#2563eb] transition-colors tracking-tight">
+                    639 262 075
+                  </a>
+                </div>
+                
+                <div className="flex items-center justify-center gap-2 text-[#25D366] bg-[#25D366]/10 py-2 px-4 rounded-full w-fit mx-auto">
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    className="w-5 h-5 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  <span className="text-[14px] font-bold">Aceptamos WhatsApp</span>
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-3">
+                <a 
+                  href="https://wa.me/34639262075" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-[16px] transition-all transform hover:scale-[1.03] active:scale-[0.98] shadow-lg shadow-[#25D366]/20"
+                >
+                  Continuar a WhatsApp
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+                <button 
+                  onClick={() => setIsContactModalOpen(false)}
+                  className="w-full py-3 text-slate-400 hover:text-slate-600 font-semibold text-[14px] transition-colors"
+                >
+                  Cerrar ventana
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
