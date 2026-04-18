@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google AI Studio App</title>
+    <script>
+      // Prevent "Cannot set property fetch of #<Window> which has only a getter" error
+      // by intercepting any attempts to overwrite window.fetch and ignoring them.
+      try {
+        let target = window;
+        let desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+        if (!desc) {
+          target = Window.prototype;
+          desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+        }
+        
+        if (desc && desc.get && !desc.set) {
+          Object.defineProperty(target, 'fetch', {
+            get: desc.get,
+            set: function(val) {
+              console.warn("Ignored attempt to overwrite fetch");
+            },
+            configurable: desc.configurable,
+            enumerable: desc.enumerable
+          });
+        }
+      } catch (e) {
+        console.error("Error setting up fetch interceptor:", e);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
